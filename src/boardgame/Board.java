@@ -13,6 +13,14 @@ public class Board {
         pieces = new Piece[rows][columns];
     }
 
+    public Piece piece(int row, int column) {
+        return pieces[row][column]; //retorna uma peça dada sua linha e coluna no tabuleiro.
+    }
+
+    public Piece piece(Position position) {
+        return pieces[position.getRow()][position.getColumn()]; //retorna uma peça dada sua posição no tabuleiro.
+    }
+
     public int getRows() {
         return rows;
     }

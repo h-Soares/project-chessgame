@@ -2,7 +2,7 @@ package boardgame;
 
 /** Classe para uma peça do tabuleiro, que tem uma posição no tabuleiro e está associada a um tabuleiro. */
 
-public class Piece {
+public abstract class Piece {
     protected Position position; //inicia como nula, sem posição no tabuleiro.
     private Board board;
 
