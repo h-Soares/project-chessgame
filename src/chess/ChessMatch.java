@@ -15,9 +15,13 @@ public class ChessMatch {
         ChessPiece piecesMatrix[][] = new ChessPiece[board.getRows()][board.getColumns()];
         for(int i = 0; i < board.getRows(); i++) {
             for(int j = 0; j < board.getColumns(); j++) {
-                piecesMatrix[i][j] = (ChessPiece) board.piece(i, j); //Downcast de Piece para ChessPiece, para interpretar como 
+                piecesMatrix[i][j] = (ChessPiece) board.getPiece(i, j); //Downcast de Piece para ChessPiece, para interpretar como 
             }                                                  //peça de xadrez, e não peça comum.
         }
         return piecesMatrix; //retorna a matriz de peças da partida.
+    }
+
+    private void initialSetup() {
+        //peças a serem colocadas no tabuleiro.
     }
 }

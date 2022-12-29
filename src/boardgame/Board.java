@@ -13,11 +13,16 @@ public class Board {
         pieces = new Piece[rows][columns];
     }
 
-    public Piece piece(int row, int column) {
+    public void placePiece(Piece piece, Position position) {
+        pieces[position.getRow()][position.getColumn()] = piece; //coloca no vetor de peças a peça passada como argumento.
+        piece.position = position; //a peça não tem mais posição nula.
+    }
+
+    public Piece getPiece(int row, int column) {
         return pieces[row][column]; //retorna uma peça dada sua linha e coluna no tabuleiro.
     }
 
-    public Piece piece(Position position) {
+    public Piece getPiece(Position position) {
         return pieces[position.getRow()][position.getColumn()]; //retorna uma peça dada sua posição no tabuleiro.
     }
 
