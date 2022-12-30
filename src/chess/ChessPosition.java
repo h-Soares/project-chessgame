@@ -22,7 +22,7 @@ public class ChessPosition {
     }
 
     protected static ChessPosition fromPosition(Position position) { //Transforma em posição NO XADREZ (A8 , B1...)
-        return new ChessPosition(((char) ('A' - position.getColumn())), (8 - position.getRow()));
+        return new ChessPosition(((char) ('A' + position.getColumn())), (8 - position.getRow()));
     }
 
     @Override 
