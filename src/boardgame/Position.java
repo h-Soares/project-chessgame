@@ -16,7 +16,7 @@ public class Position {
         StringBuilder sb = new StringBuilder();
 
         sb.append("row: " + row);
-        sb.append(", column: " + column);
+        sb.append(" column: " + column);
         return sb.toString();
     }
 
