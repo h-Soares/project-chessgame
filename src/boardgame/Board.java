@@ -26,11 +26,11 @@ public class Board {
         piece.position = position; //a peça não tem mais posição nula.            
     }
 
-    private boolean positionExists(int row, int column) {
+    private boolean positionExists(int row, int column) {  //refere-se ao ÍNDICE na matriz. 
         return ((row >= 0 && row < rows) && (column >= 0 && column < columns));
     }
 
-    private boolean positionExists(Position position) {  //refere-se ao ÍNDICE na matriz. 
+    private boolean positionExists(Position position) {
         return positionExists(position.getRow(), position.getColumn());
     }
 
