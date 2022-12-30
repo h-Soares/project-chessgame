@@ -30,7 +30,19 @@ public class ChessMatch {
         //peças a serem colocadas no tabuleiro.
         //board.placePiece(new Rook(board, Color.BLACK), new Position(0, 0));
         //board.placePiece(new King(board, Color.BLACK), new Position(0, 1));
-        board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('A', 8).toPosition());
-        board.placePiece(new King(board, Color.BLACK), new ChessPosition('B', 8).toPosition());
+        //board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('a', 8).toPosition());
+        board.placePiece(new Rook(board, Color.WHITE), new ChessPosition('c', 1).toPosition());
+        board.placePiece(new Rook(board, Color.WHITE), new ChessPosition('c', 2).toPosition());
+        board.placePiece(new Rook(board, Color.WHITE), new ChessPosition('d', 2).toPosition());
+        board.placePiece(new Rook(board, Color.WHITE), new ChessPosition('e', 2).toPosition());
+        board.placePiece(new Rook(board, Color.WHITE), new ChessPosition('e', 1).toPosition());
+        board.placePiece(new King(board, Color.WHITE), new ChessPosition('d', 1).toPosition());
+
+        board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('c', 7).toPosition());
+        board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('c', 8).toPosition());
+        board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('d', 7).toPosition());
+        board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('e', 7).toPosition());
+        board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('e', 8).toPosition());
+        board.placePiece(new King(board, Color.BLACK), new ChessPosition('d', 8).toPosition());
     }
 }
