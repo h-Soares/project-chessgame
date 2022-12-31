@@ -1,8 +1,10 @@
 package chess;
 
 import boardgame.Board;
-//import boardgame.Position;
+import boardgame.Piece;
+import boardgame.Position;
 import chess.enums.Color;
+import chess.exceptions.ChessException;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
@@ -26,10 +28,27 @@ public class ChessMatch {
         return piecesMatrix; //retorna a matriz de peças da partida.
     }
 
+    public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+        Position source = sourcePosition.toPosition(); //convertendo para posição na MATRIZ.
+        Position target = targetPosition.toPosition();
+        if(!board.thereIsAPiece(source)) //se a peça na posição source for null
+            throw new ChessException("There is no piece on source position");
+        
+        //se chegou aqui é porque a peça na posição source não é null
+        Piece capturedPiece = makeMove(source, target); //pode ser peça null
+        return (ChessPiece) capturedPiece; 
+    }
+
+    private Piece makeMove(Position source, Position target) {
+        Piece piece = board.removePiece(source);
+        Piece capturedPiece = board.removePiece(target); //pode ser peça null
+        board.placePiece(piece, target);
+        return capturedPiece;
+    }
+
     private void initialSetup() {
         //peças a serem colocadas no tabuleiro.
         //board.placePiece(new Rook(board, Color.BLACK), new Position(0, 0));
-        //board.placePiece(new King(board, Color.BLACK), new Position(0, 1));
         //board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('a', 8).toPosition());
         board.placePiece(new Rook(board, Color.WHITE), new ChessPosition('c', 1).toPosition());
         board.placePiece(new Rook(board, Color.WHITE), new ChessPosition('c', 2).toPosition());

@@ -26,6 +26,16 @@ public class Board {
         piece.position = position; //a peça não tem mais posição nula.            
     }
 
+    public Piece removePiece(Position position) {
+        if(!thereIsAPiece(position))
+            return null;
+
+        getPiece(position).position = null; //remove a posição característica da peça
+        Piece returnPiece = getPiece(position); //para retornar a peça que está na posição do tabuleiro que ficará null
+        pieces[position.getRow()][position.getColumn()] = null; //peça removida da posição no tabuleiro
+        return returnPiece; //para saber a peça removida.
+    }
+
     private boolean positionExists(int row, int column) {  //refere-se ao ÍNDICE na matriz. 
         return ((row >= 0 && row < rows) && (column >= 0 && column < columns));
     }
@@ -34,7 +44,7 @@ public class Board {
         return positionExists(position.getRow(), position.getColumn());
     }
 
-    private boolean thereIsAPiece(Position position) {
+    public boolean thereIsAPiece(Position position) {
         if(positionExists(position))
             return (getPiece(position) != null);
         else
@@ -52,7 +62,7 @@ public class Board {
         if(positionExists(position))
             return pieces[position.getRow()][position.getColumn()]; //retorna uma peça dada sua posição no tabuleiro.
         else
-            throw new BoardException("This position doesn't exist ");
+            throw new BoardException("This position doesn't exist");
     }
 
     public int getRows() {
