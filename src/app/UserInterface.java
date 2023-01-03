@@ -32,7 +32,7 @@ public class UserInterface {
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     // https://stackoverflow.com/questions/2979383/java-clear-the-console
-    public static void clearScreen() {
+    public static void clearScreen() { //funciona melhor quando usado no terminal git Bash
         System.out.print("\033[H\033[2J");
         System.out.flush();
    } 
@@ -53,16 +53,29 @@ public class UserInterface {
         for(int i = 0; i < pieces.length; i++) {
             System.out.print((8 - i) + " ");
             for(int j = 0; j < pieces.length; j++) {
-                printOnePiece(pieces[i][j]);
+                printOnePiece(pieces[i][j], false);
             }
             System.out.println();
         }
         System.out.println("  a b c d e f g h");
     }
 
-    private static void printOnePiece(ChessPiece piece) {
-    	if (piece == null)
-            System.out.print("-");
+    public static void printChessBoard(ChessPiece pieces[][], boolean possibleMoves[][]) { //sobrecarga de método
+        for(int i = 0; i < pieces.length; i++) {
+            System.out.print((8 - i) + " ");
+            for(int j = 0; j < pieces.length; j++) {
+                printOnePiece(pieces[i][j], possibleMoves[i][j]); //pinta apenas onde a peça pode se mover
+            }                                                     
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g h");
+    }
+
+    private static void printOnePiece(ChessPiece piece, boolean backgroundHasColor) {
+    	if(backgroundHasColor)
+            System.out.print(ANSI_GREEN_BACKGROUND);
+        if (piece == null)
+            System.out.print("-" + ANSI_RESET);
         else if (piece.getColor() == Color.WHITE) 
             System.out.print(ANSI_WHITE + piece + ANSI_RESET);
         else 

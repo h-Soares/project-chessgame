@@ -28,6 +28,16 @@ public class ChessMatch {
         return piecesMatrix; //retorna a matriz de peças da partida.
     }
 
+    public boolean[][] sourcePossibleMoves(ChessPosition sourcePosition) { //verificar movimentos possíveis de uma determinada peça.
+        Position source = sourcePosition.toPosition();
+        if(!board.thereIsAPiece(source)) //se a peça na posição source for null
+            throw new ChessException("There is no piece on source position");
+        if(!board.getPiece(source).isThereAnyPossibleMove())
+            throw new ChessException("There is no possible moves for the chosen source piece");
+        
+        return board.getPiece(source).possibleMoves();
+    }
+
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
         Position source = sourcePosition.toPosition(); //convertendo para posição na MATRIZ.
         Position target = targetPosition.toPosition();

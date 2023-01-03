@@ -12,13 +12,17 @@ public class App {
         Scanner scan = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
 
-        while(true) { //apenas para teste
+        while(true) { //true apenas para teste
             try {
                 UserInterface.clearScreen();
                 UserInterface.printChessBoard(chessMatch.getPieces());
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UserInterface.readChessPosition(scan);
+
+                boolean sourceMoves[][] = chessMatch.sourcePossibleMoves(source);
+                UserInterface.clearScreen();
+                UserInterface.printChessBoard(chessMatch.getPieces(), sourceMoves);
                 
                 System.out.println();
                 System.out.print("Target: ");
