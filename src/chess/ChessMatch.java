@@ -31,12 +31,16 @@ public class ChessMatch {
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
         Position source = sourcePosition.toPosition(); //convertendo para posição na MATRIZ.
         Position target = targetPosition.toPosition();
+        //Validando source
         if(!board.thereIsAPiece(source)) //se a peça na posição source for null
             throw new ChessException("There is no piece on source position");
         if(!board.getPiece(source).isThereAnyPossibleMove())
             throw new ChessException("There is no possible moves for the chosen source piece");
-        
-        //se chegou aqui é porque a peça na posição source não é null
+        //Validando target
+        if(!board.getPiece(source).possibleMove(target))
+            throw new ChessException("The source chosen piece can't move to target position");
+
+        //se chegou aqui é porque a peça na posição source não é null, todos os if foram satisfeitos
         Piece capturedPiece = makeMove(source, target); //pode ser peça null
         return (ChessPiece) capturedPiece; 
     }
