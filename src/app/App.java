@@ -28,13 +28,13 @@ public class App {
             }
             catch(ChessException e) { //TENTAR ARRUMAR ESSA REPETIÇÃO.
                 System.out.println(e.getMessage());
-                System.out.println("PRESS ENTER");
+                System.out.print("PRESS ENTER ");
                 scan.nextLine();
                 scan.nextLine();
             }
             catch(InputMismatchException e) {
                 System.out.println(e.getMessage());
-                System.out.println("PRESS ENTER");
+                System.out.print("PRESS ENTER ");
                 scan.nextLine();
                 scan.nextLine();
             }

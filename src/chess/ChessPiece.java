@@ -6,7 +6,7 @@ import chess.enums.Color;
 
 /** Classe de uma peça de xadrez, que herda de Piece e tem sua própria cor. */
 
-public class ChessPiece extends Piece {
+public abstract class ChessPiece extends Piece {
     
     private final Color color;
 

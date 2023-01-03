@@ -33,6 +33,8 @@ public class ChessMatch {
         Position target = targetPosition.toPosition();
         if(!board.thereIsAPiece(source)) //se a peça na posição source for null
             throw new ChessException("There is no piece on source position");
+        if(!board.getPiece(source).isThereAnyPossibleMove())
+            throw new ChessException("There is no possible moves for the chosen source piece");
         
         //se chegou aqui é porque a peça na posição source não é null
         Piece capturedPiece = makeMove(source, target); //pode ser peça null
