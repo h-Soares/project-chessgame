@@ -29,7 +29,7 @@ public class ChessMatch {
     }
 
     public boolean[][] sourcePossibleMoves(ChessPosition sourcePosition) { //verificar movimentos possíveis de uma determinada peça.
-        Position source = sourcePosition.toPosition();
+        Position source = sourcePosition.toPosition();                    //usei para printar colorido em UserInterface
         if(!board.thereIsAPiece(source)) //se a peça na posição source for null
             throw new ChessException("There is no piece on source position");
         if(!board.getPiece(source).isThereAnyPossibleMove())
