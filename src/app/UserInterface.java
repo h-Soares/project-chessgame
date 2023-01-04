@@ -1,6 +1,9 @@
 package app;
 
 import java.util.InputMismatchException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Scanner;
 import chess.ChessPiece;
 import chess.ChessPosition;
@@ -82,5 +85,20 @@ public class UserInterface {
             System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
         
         System.out.print(" ");
+    }
+
+    public static void printCapturedPieces(List<ChessPiece> capturedPieces) {
+        List<ChessPiece> capturedWhite = capturedPieces.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
+        List<ChessPiece> capturedBlack = capturedPieces.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
+
+        System.out.println("Captured pieces:");
+        System.out.print("White: ");
+        System.out.print(ANSI_WHITE);
+        System.out.println(Arrays.toString(capturedWhite.toArray()));
+        System.out.print(ANSI_RESET);
+        System.out.print("Black: ");
+        System.out.print(ANSI_YELLOW);
+        System.out.println(Arrays.toString(capturedBlack.toArray()));
+        System.out.print(ANSI_RESET);
     }
 }
