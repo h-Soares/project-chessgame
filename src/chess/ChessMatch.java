@@ -12,9 +12,13 @@ import chess.pieces.Rook;
 
 public class ChessMatch {
     private Board board;
+    private int turn;
+    private Color colorCurrentPlayer;
 
     public ChessMatch() {
         board = new Board(8, 8);
+        turn = 1;
+        colorCurrentPlayer = Color.WHITE;
         initialSetup();
     }
 
@@ -32,6 +36,8 @@ public class ChessMatch {
         Position source = sourcePosition.toPosition();                    //usei para printar colorido em UserInterface
         if(!board.thereIsAPiece(source)) //se a peça na posição source for null
             throw new ChessException("There is no piece on source position");
+        if(colorCurrentPlayer != ((ChessPiece) board.getPiece(source)).getColor())
+            throw new ChessException("The chosen piece is not yours");
         if(!board.getPiece(source).isThereAnyPossibleMove())
             throw new ChessException("There is no possible moves for the chosen source piece");
         
@@ -44,6 +50,8 @@ public class ChessMatch {
         //Validando source
         if(!board.thereIsAPiece(source)) //se a peça na posição source for null
             throw new ChessException("There is no piece on source position");
+        if(colorCurrentPlayer != ((ChessPiece) board.getPiece(source)).getColor())
+            throw new ChessException("The chosen piece is not yours");
         if(!board.getPiece(source).isThereAnyPossibleMove())
             throw new ChessException("There is no possible moves for the chosen source piece");
         //Validando target
@@ -52,6 +60,7 @@ public class ChessMatch {
 
         //se chegou aqui é porque a peça na posição source não é null, todos os if foram satisfeitos
         Piece capturedPiece = makeMove(source, target); //pode ser peça null
+        nextTurn();
         return (ChessPiece) capturedPiece; 
     }
 
@@ -60,6 +69,14 @@ public class ChessMatch {
         Piece capturedPiece = board.removePiece(target); //pode ser peça null
         board.placePiece(piece, target);
         return capturedPiece;
+    }
+
+    private void nextTurn() {
+        turn++;
+        if(colorCurrentPlayer == Color.WHITE)
+            colorCurrentPlayer = Color.BLACK;
+        else
+            colorCurrentPlayer = Color.WHITE;
     }
 
     private void initialSetup() {
@@ -79,5 +96,13 @@ public class ChessMatch {
         board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('e', 7).toPosition());
         board.placePiece(new Rook(board, Color.BLACK), new ChessPosition('e', 8).toPosition());
         board.placePiece(new King(board, Color.BLACK), new ChessPosition('d', 8).toPosition());
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public Color getColorCurrentPlayer() {
+        return colorCurrentPlayer;
     }
 }

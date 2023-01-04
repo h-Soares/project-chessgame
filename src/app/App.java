@@ -17,6 +17,9 @@ public class App {
                 UserInterface.clearScreen();
                 UserInterface.printChessBoard(chessMatch.getPieces());
                 System.out.println();
+                System.out.println("Turn: " + chessMatch.getTurn());
+                System.out.println("Waiting for player " + chessMatch.getColorCurrentPlayer());
+                System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UserInterface.readChessPosition(scan);
 
