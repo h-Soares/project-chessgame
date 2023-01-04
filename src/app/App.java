@@ -24,6 +24,8 @@ public class App {
                 System.out.println();
                 System.out.println("Turn: " + chessMatch.getTurn());
                 System.out.println("Waiting for player " + chessMatch.getColorCurrentPlayer());
+                if(chessMatch.getCheck())
+                    System.out.println("CHECK!");
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UserInterface.readChessPosition(scan);

@@ -21,6 +21,10 @@ public abstract class ChessPiece extends Piece {
         return piece != null && piece.getColor() != color; //não pode ser null e a cor tem que ser diferente da atual, para ser adversário.
     }
 
+    public ChessPosition getChessPosition() {
+        return ChessPosition.fromPosition(position);
+    }
+
     public Color getColor() {
         return color;
     }
