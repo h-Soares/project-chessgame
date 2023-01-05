@@ -94,12 +94,14 @@ public class ChessMatch {
             capturedPieces.add(capturedPiece);
         }
         board.placePiece(piece, target);
+        ((ChessPiece)piece).increaseMoveCount(); //diferente da aula
         return capturedPiece;
     }
 
     public void undoMove(Position source, Position target, Piece capturedPiece) { //se o próprio jogador se colocar em cheque
         Piece piece = board.removePiece(target);
         board.placePiece(piece, source);
+        ((ChessPiece)piece).decreaseMoveCount(); //diferente da aula
 
         if(capturedPiece != null) {
             board.placePiece(capturedPiece, target);
@@ -166,7 +168,7 @@ public class ChessMatch {
         return false;
     }
 
-    private boolean testCheckMate(Color color) {
+    private boolean testCheckMate(Color color) { //mais pra frente, tentar fazer staleMate (afogamento do rei)
         if(!testCheck(color))
             return false;
         

@@ -8,8 +8,8 @@ import chess.enums.Color;
 /** Classe de uma peça de xadrez, que herda de Piece e tem sua própria cor. */
 
 public abstract class ChessPiece extends Piece {
-    
     private final Color color;
+    private int moveCount;
 
     public ChessPiece(Board board, Color color) {
         super(board);
@@ -19,6 +19,18 @@ public abstract class ChessPiece extends Piece {
     protected boolean isThereOpponentPiece(Position position) {
         ChessPiece piece = (ChessPiece) getBoard().getPiece(position);
         return piece != null && piece.getColor() != color; //não pode ser null e a cor tem que ser diferente da atual, para ser adversário.
+    }
+
+    protected void increaseMoveCount() {
+        moveCount++;
+    }
+
+    protected void decreaseMoveCount() {
+        moveCount--;
+    }
+
+    public int getMoveCount() {
+        return moveCount;
     }
 
     public ChessPosition getChessPosition() {
