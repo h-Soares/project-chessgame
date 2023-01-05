@@ -15,17 +15,10 @@ public class App {
         ChessMatch chessMatch = new ChessMatch();
         List<ChessPiece> capturedPieces = new ArrayList<>();
 
-        while(true) { //true apenas para teste
+        while(!chessMatch.getCheckMate()) {
             try {
                 UserInterface.clearScreen();
-                UserInterface.printChessBoard(chessMatch.getPieces());
-                System.out.println();
-                UserInterface.printCapturedPieces(capturedPieces);
-                System.out.println();
-                System.out.println("Turn: " + chessMatch.getTurn());
-                System.out.println("Waiting for player " + chessMatch.getColorCurrentPlayer());
-                if(chessMatch.getCheck())
-                    System.out.println("CHECK!");
+                UserInterface.printChessMatch(chessMatch, capturedPieces);
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UserInterface.readChessPosition(scan);
@@ -55,6 +48,8 @@ public class App {
                 scan.nextLine();
             }
         }
-        //scan.close();
+        UserInterface.clearScreen();
+        UserInterface.printChessMatch(chessMatch, capturedPieces);
+        scan.close();
     }
 }

@@ -18,8 +18,9 @@ public class ChessMatch {
     private int turn;
     private Color colorCurrentPlayer;
     private boolean check;
+    private boolean checkMate;
 
-    private List<Piece> piecesOnBoard = new ArrayList<>(); //Ainda não ficou claro a utilidade dessas listas NESSA classe.
+    private List<Piece> piecesOnBoard = new ArrayList<>();
     private List<Piece> capturedPieces = new ArrayList<>();
 
     public ChessMatch() {
@@ -78,7 +79,10 @@ public class ChessMatch {
         else
             check = false;
         
-        nextTurn();
+        if(testCheckMate(opponent(colorCurrentPlayer)))
+            checkMate = true;
+        else
+            nextTurn();
         return (ChessPiece) capturedPiece; 
     }
 
@@ -162,8 +166,36 @@ public class ChessMatch {
         return false;
     }
 
+    private boolean testCheckMate(Color color) {
+        if(!testCheck(color))
+            return false;
+        
+        List<Piece> colorPieces = piecesOnBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+        for(Piece piece : colorPieces) {
+            boolean movesMatrix[][] = piece.possibleMoves();
+            for(int i = 0; i < board.getRows(); i++) {
+                for(int j = 0; j < board.getColumns(); j++) {
+                    if(movesMatrix[i][j]) { //se for uma posição movível
+                        Position source = ((ChessPiece)piece).getChessPosition().toPosition(); 
+                        Position target = new Position(i, j);
+                        Piece capturedPiece = makeMove(source, target); //verifica se ao se mover para a posição movível sai do xeque
+                        boolean check = testCheck(color); //para guardar o boolean, pois o movimento será desfeito para não bagunçar o tabuleiro
+                        undoMove(source, target, capturedPiece);
+                        if(!check)
+                            return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public boolean getCheck() {
         return check;
+    }
+
+    public boolean getCheckMate() {
+        return checkMate;
     }
 
     public int getTurn() {

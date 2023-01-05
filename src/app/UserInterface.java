@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Scanner;
+
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.enums.Color;
@@ -52,7 +54,24 @@ public class UserInterface {
         }
     }
 
-    public static void printChessBoard(ChessPiece pieces[][]) {
+    public static void printChessMatch(ChessMatch chessMatch, List<ChessPiece> capturedPieces) {
+        printChessBoard(chessMatch.getPieces());
+        System.out.println();
+        printCapturedPieces(capturedPieces);
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        if(!chessMatch.getCheckMate()) {
+            System.out.println("Waiting for player " + chessMatch.getColorCurrentPlayer());
+            if(chessMatch.getCheck())
+                System.out.println("CHECK!");
+        }
+        else {
+            System.out.println("CHECKMATE!");
+            System.out.println("The winner is: " + chessMatch.getColorCurrentPlayer());
+        }
+    }
+
+    private static void printChessBoard(ChessPiece pieces[][]) {
         for(int i = 0; i < pieces.length; i++) {
             System.out.print((8 - i) + " ");
             for(int j = 0; j < pieces.length; j++) {
@@ -87,7 +106,7 @@ public class UserInterface {
         System.out.print(" ");
     }
 
-    public static void printCapturedPieces(List<ChessPiece> capturedPieces) {
+    private static void printCapturedPieces(List<ChessPiece> capturedPieces) {
         List<ChessPiece> capturedWhite = capturedPieces.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
         List<ChessPiece> capturedBlack = capturedPieces.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
 
