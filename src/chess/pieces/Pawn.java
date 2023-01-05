@@ -5,7 +5,7 @@ import boardgame.Position;
 import chess.ChessPiece;
 import chess.enums.Color;
 
-/** Classe que representa a o peão (Pawn) */
+/** Classe que representa o peão (Pawn) */
 
 public class Pawn extends ChessPiece{
 
