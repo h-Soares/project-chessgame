@@ -21,6 +21,7 @@ public class ChessMatch {
     private Board board;
     private int turn;
     private ChessPiece enPassantVulnerable; //começa com padrão: null.
+    private ChessPiece promoted;
     private Color colorCurrentPlayer;
     private boolean check;
     private boolean checkMate;
@@ -85,6 +86,13 @@ public class ChessMatch {
             undoMove(source, target, capturedPiece);  
             throw new ChessException("You can't put yourself in check");  
         }
+
+        //Promoção de peão
+        promoted = null; //é propriedade do chessMatch, logo não é da peça e muda.
+        if(movedPiece instanceof Pawn) {
+            if(movedPiece.getColor() == Color.WHITE && target.getRow() == 0 || movedPiece.getColor() == Color.BLACK && target.getRow() == 7) //peão chegou no final
+                promoted = (ChessPiece) board.getPiece(target);   
+        }
         
         if(testCheck(opponent(colorCurrentPlayer))) 
             check = true;
@@ -103,6 +111,38 @@ public class ChessMatch {
             enPassantVulnerable = null;
 
         return (ChessPiece) capturedPiece; //cada peça sabe as suas características: cor, movimentação, etc.
+    }
+
+    public void replacePromotedPiece(String typePiece) {
+        if(promoted == null)
+            throw new IllegalStateException("There is no piece to be promoted");
+        //aqui seria o tratamento de erro de typePiece, mas no main, onde ele é usado, não é permitido o erro.
+
+        Position promotedPosition = promoted.getChessPosition().toPosition();
+        Piece removedPiece = board.removePiece(promotedPosition);
+        piecesOnBoard.remove(removedPiece);
+
+        ChessPiece newPiece = toPromotePiece(typePiece, promoted.getColor());
+        board.placePiece(newPiece, promotedPosition); 
+        piecesOnBoard.add(newPiece);
+
+        //Como passou o turno: ----------------------------------------------------------------
+        check = testCheck(colorCurrentPlayer) ? true : false;
+
+        if(testCheckMate(colorCurrentPlayer)) {
+            checkMate = true;
+            colorCurrentPlayer = opponent(colorCurrentPlayer); //para dar print na cor correta.
+        }
+    }
+
+    private ChessPiece toPromotePiece(String typePiece, Color color) {
+        if(typePiece.equals("B"))
+            return new Bishop(board, color);
+        if(typePiece.equals("N"))
+            return new Knight(board, color);
+        if(typePiece.equals("R"))
+            return new Rook(board, color);
+        return new Queen(board, color);
     }
 
     private Piece makeMove(Position source, Position target) {
@@ -309,6 +349,10 @@ public class ChessMatch {
 
     public ChessPiece getEnPassantVulnerable() {
         return enPassantVulnerable;
+    }
+
+    public ChessPiece getPromoted() {
+        return promoted;
     }
 
     public int getTurn() {

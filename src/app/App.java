@@ -34,6 +34,16 @@ public class App {
                 ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
                 if(capturedPiece != null)
                     capturedPieces.add(capturedPiece);
+                if(chessMatch.getPromoted() != null) {
+                    System.out.print("Piece for promotion (B/N/R/Q): ");
+                    String typePiece = scan.next().toUpperCase();
+                    while(!typePiece.equals("B") && !typePiece.equals("N") && !typePiece.equals("R") && !typePiece.equals("Q")) {
+                        System.out.println("Invalid input!");
+                        System.out.print("Piece for promotion (B/N/R/Q): ");  
+                        typePiece = scan.next().toUpperCase();  
+                    }
+                    chessMatch.replacePromotedPiece(typePiece);
+                }
             }
             catch(ChessException e) { //TENTAR ARRUMAR ESSA REPETIÇÃO.
                 System.out.println(e.getMessage());
