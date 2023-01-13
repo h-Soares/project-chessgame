@@ -45,13 +45,7 @@ public class App {
                     chessMatch.replacePromotedPiece(typePiece);
                 }
             }
-            catch(ChessException e) {
-                System.out.println(e.getMessage());
-                System.out.print("PRESS ENTER ");
-                scan.nextLine();
-                scan.nextLine();
-            }
-            catch(InputMismatchException e) {
+            catch(ChessException | InputMismatchException e) { //mesmo corpo de código.
                 System.out.println(e.getMessage());
                 System.out.print("PRESS ENTER ");
                 scan.nextLine();
