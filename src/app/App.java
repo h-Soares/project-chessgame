@@ -45,7 +45,7 @@ public class App {
                     chessMatch.replacePromotedPiece(typePiece);
                 }
             }
-            catch(ChessException e) { //TENTAR ARRUMAR ESSA REPETIÇÃO.
+            catch(ChessException e) {
                 System.out.println(e.getMessage());
                 System.out.print("PRESS ENTER ");
                 scan.nextLine();
